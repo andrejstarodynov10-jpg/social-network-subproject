@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Переменные окружения и секреты
+.env
+.env.*
+!.env.example
+
+# Node / frontend
+node_modules/
+dist/
+
+# PyCharm / IDE
+.idea/
+.vscode/
+
+# ОС
+.DS_Store
+Thumbs.db
