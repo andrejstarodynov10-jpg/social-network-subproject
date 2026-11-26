@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="feed.html">← Назад в ленту</a>
+            <span> | </span>
+            <a id="my-profile-link" href="#">Мой профиль</a>
+        </nav>
+    </header>
+
+    <p id="message"></p>
+
+    <!-- Информация о пользователе -->
+    <section id="profile-info">
+        <h1 id="profile-display-name">Загрузка...</h1>
+        <p>@<span id="profile-username"></span></p>
+        <p id="profile-bio"></p>
+    </section>
+
+    <!-- Форма редактирования (показывается только если открыт свой профиль) -->
+    <section id="edit-profile-section" hidden>
+        <hr>
+        <h3>Редактировать профиль</h3>
+        <form id="edit-profile-form">
+            <div>
+                <label for="edit-display-name">Имя:</label><br>
+                <input type="text" id="edit-display-name" maxlength="50" placeholder="Отображаемое имя">
+            </div>
+            <br>
+            <div>
+                <label for="edit-bio">О себе (bio):</label><br>
+                <textarea id="edit-bio" rows="3" maxlength="500" placeholder="Расскажите о себе"></textarea>
+            </div>
+            <br>
+            <button type="submit">Сохранить</button>
+        </form>
+        <hr>
+    </section>
+
+    <!-- Посты пользователя -->
+    <main>
+        <h2>Посты пользователя</h2>
+        <div id="user-posts-list"></div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
