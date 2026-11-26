@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лента</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
         <h1>Лента</h1>
-        <p>Пользователь: <strong id="user-name">Загрузка...</strong></p>
+        <p>Пользователь: <a id="my-profile-link" href="#">Загрузка...</a></p>
         <button type="button" id="logout-button">Выйти</button>
     </header>
 
-    <!-- Форма создания нового поста -->
     <section>
         <form id="post-form">
             <textarea id="post-text" placeholder="Что у вас нового?" rows="3" required maxlength="2000"></textarea>
@@ -24,7 +24,6 @@
 
     <p id="message"></p>
 
-    <!-- Контейнер для ленты постов -->
     <main id="posts-list"></main>
 
     <script src="js/config.js"></script>
