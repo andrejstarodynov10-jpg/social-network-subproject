@@ -6,7 +6,29 @@
     <title>Лента</title>
 </head>
 <body>
-    <h1>Лента</h1>
-    <p>Заглушка: эту страницу вы сделаете следующим заданием.</p>
+
+    <header>
+        <h1>Лента</h1>
+        <p>Пользователь: <strong id="user-name">Загрузка...</strong></p>
+        <button type="button" id="logout-button">Выйти</button>
+    </header>
+
+    <!-- Форма создания нового поста -->
+    <section>
+        <form id="post-form">
+            <textarea id="post-text" placeholder="Что у вас нового?" rows="3" required maxlength="2000"></textarea>
+            <br>
+            <button type="submit">Опубликовать</button>
+        </form>
+    </section>
+
+    <p id="message"></p>
+
+    <!-- Контейнер для ленты постов -->
+    <main id="posts-list"></main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/feed.js"></script>
 </body>
 </html>
