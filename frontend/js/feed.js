@@ -1,9 +1,38 @@
-const myProfileLink = document.querySelector("#my-profile-link");
+const announcementsBox = document.querySelector("#announcements");
 const postsList = document.querySelector("#posts-list");
 const postForm = document.querySelector("#post-form");
 const postTextInput = document.querySelector("#post-text");
 
 let currentUser = null;
+
+// Загрузка и отображение оповещений (GET /api/announcements)
+async function loadAnnouncements() {
+    if (!announcementsBox) return;
+    try {
+        const result = await apiRequest("/api/announcements");
+        if (!result.ok || !Array.isArray(result.data)) return;
+
+        announcementsBox.innerHTML = "";
+        for (const item of result.data) {
+            const banner = document.createElement("div");
+            banner.className = "announcement-banner";
+
+            const title = document.createElement("h4");
+            title.textContent = item.title;
+
+            const text = document.createElement("p");
+            text.textContent = item.text;
+
+            const date = document.createElement("small");
+            date.textContent = formatDate(item.created_at);
+
+            banner.append(title, text, date);
+            announcementsBox.append(banner);
+        }
+    } catch (error) {
+        // Ошибку загрузки баннера можно не выводить поверх всей ленты
+    }
+}
 
 async function loadPosts() {
     if (!postsList) return;
@@ -71,11 +100,9 @@ async function checkAuth() {
 
         if (result.ok && result.data) {
             currentUser = result.data;
-            if (myProfileLink) {
-                myProfileLink.textContent = currentUser.display_name || currentUser.username;
-                myProfileLink.href = `profile.html?id=${currentUser.id}`;
-            }
-            loadPosts();
+            updateNavLinks(currentUser);
+            await loadAnnouncements();
+            await loadPosts();
         } else {
             showMessage("Не удалось загрузить данные пользователя");
         }

@@ -321,7 +321,24 @@ main h2 {
     letter-spacing: 0.05em;
     padding-left: 4px;
 }
+#categories-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
 
+#categories-filter button {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    border-radius: 20px;
+}
+
+#categories-filter button.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
+    border-color: transparent;
+}
 article {
     position: relative;
     background: var(--card-bg);
@@ -372,6 +389,33 @@ article > p {
     margin-bottom: 16px;
     white-space: pre-wrap;
     word-break: break-word;
+}
+
+article img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    display: block;
+}
+
+#news-detail h2 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--text-main);
+    text-transform: none;
+    letter-spacing: -0.01em;
+    padding-left: 0;
+    margin-bottom: 6px;
+}
+
+#news-detail small a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#news-detail small a:hover {
+    text-decoration: underline;
 }
 
 /* Панель действий (лайк, комментарии, удалить) */
@@ -521,4 +565,96 @@ body:has(#login-form) button[type="submit"] {
     article form button[type="submit"] {
         width: 100%;
     }
+}
+/* =========================================================
+   9. Исправления для страницы новости
+   ========================================================= */
+
+/* Элементы с атрибутом hidden всегда скрыты */
+[hidden] {
+    display: none !important;
+}
+
+/* Блок комментариев на странице новости: обычный блок, а не полоса кнопок */
+#news-comments-section {
+    display: block;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+}
+
+/* =========================================================
+   10. Баннер оповещений и админ-панель
+   ========================================================= */
+#announcements {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.announcement-banner {
+    background: linear-gradient(135deg, #eff6ff, #eef2ff);
+    border: 1px solid #bfdbfe;
+    border-left: 5px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.announcement-banner h4 {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.announcement-banner p {
+    font-size: 0.94rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    white-space: pre-wrap;
+}
+
+.announcement-banner small {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.admin-item:last-child {
+    border-bottom: none;
+}
+
+.admin-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.admin-controls,
+.form-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.admin-item button:last-child {
+    color: var(--danger);
+    border-color: #fecaca;
+}
+
+.admin-item button:last-child:hover {
+    background-color: var(--danger-bg);
+}
+
+/* Ссылки в шапке без подчёркивания */
+header nav a {
+    text-decoration: none;
 }

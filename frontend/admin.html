@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Админ-панель</h1>
+        <nav>
+            <a href="feed.html">Лента</a>
+            <a href="news.html">Новости</a>
+            <a id="my-profile-link" href="profile.html">Мой профиль</a>
+            <a id="admin-link" href="admin.html" hidden>Админ-панель</a>
+            <button id="logout-button" type="button">Выйти</button>
+        </nav>
+    </header>
+
+    <div id="message"></div>
+
+    <!-- Управление оповещениями -->
+    <section>
+        <h2>Создать оповещение</h2>
+        <form id="announcement-form">
+            <label for="ann-title">Заголовок (до 120 символов)</label>
+            <input type="text" id="ann-title" maxlength="120" required>
+
+            <label for="ann-text">Текст (до 2000 символов)</label>
+            <textarea id="ann-text" maxlength="2000" required></textarea>
+
+            <button type="submit">Опубликовать оповещение</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Активные оповещения</h2>
+        <div id="admin-announcements-list"></div>
+    </section>
+
+    <!-- Управление новостями -->
+    <section>
+        <h2 id="news-form-heading">Создать новость</h2>
+        <form id="news-form">
+            <label for="news-title">Заголовок</label>
+            <input type="text" id="news-title" maxlength="150" required>
+
+            <label for="news-category">Категория</label>
+            <input type="text" id="news-category" placeholder="Например: Обновления, Правила, Тест" maxlength="50" required>
+
+            <label for="news-text">Текст новости</label>
+            <textarea id="news-text" maxlength="20000" required></textarea>
+
+            <label for="news-image">Картинка (необязательно)</label>
+            <input type="file" id="news-image" accept="image/png,image/jpeg,image/gif,image/webp">
+
+            <label id="remove-image-label" hidden>
+                <input type="checkbox" id="news-remove-image"> Удалить текущую картинку
+            </label>
+
+            <div class="form-buttons">
+                <button type="submit" id="news-submit-btn">Опубликовать новость</button>
+                <button type="button" id="news-cancel-edit-btn" hidden>Отмена</button>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <h2>Все новости</h2>
+        <div id="admin-news-list"></div>
+    </section>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -13,7 +13,9 @@ async function apiRequest(path, method = "GET", body = null) {
         credentials: "include",
     };
 
-    if (body !== null) {
+    if (body instanceof FormData) {
+        options.body = body;
+    } else if (body !== null) {
         options.headers = { "Content-Type": "application/json" };
         options.body = JSON.stringify(body);
     }
@@ -28,6 +30,21 @@ async function apiRequest(path, method = "GET", body = null) {
     }
 
     return { ok: response.ok, status: response.status, data: data };
+}
+
+// Настраивает ссылки в шапке на всех страницах
+function updateNavLinks(user) {
+    if (!user) return;
+
+    const myProfileLink = document.querySelector("#my-profile-link");
+    if (myProfileLink) {
+        myProfileLink.href = `profile.html?id=${user.id}`;
+    }
+
+    const adminLink = document.querySelector("#admin-link");
+    if (adminLink && user.role === "admin") {
+        adminLink.hidden = false;
+    }
 }
 
 // Превращает дату в читаемый вид

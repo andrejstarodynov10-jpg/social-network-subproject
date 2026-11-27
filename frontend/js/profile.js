@@ -1,4 +1,3 @@
-const myProfileLink = document.querySelector("#my-profile-link");
 const displayNameBox = document.querySelector("#profile-display-name");
 const usernameBox = document.querySelector("#profile-username");
 const bioBox = document.querySelector("#profile-bio");
@@ -136,9 +135,7 @@ async function initProfilePage() {
         if (authResult.ok && authResult.data) {
             currentUser = authResult.data;
 
-            if (myProfileLink) {
-                myProfileLink.href = `profile.html?id=${currentUser.id}`;
-            }
+            updateNavLinks(currentUser);
 
             // Если в URL не передан ?id=..., открываем профиль текущего пользователя
             const targetId = profileId || currentUser.id;

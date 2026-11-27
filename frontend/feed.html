@@ -10,13 +10,16 @@
     <header>
         <h1>Лента</h1>
         <nav>
-            <span>Пользователь: <a id="my-profile-link" href="profile.html">Загрузка...</a></span>
+            <a href="feed.html">Лента</a>
+            <a href="news.html">Новости</a>
+            <a id="my-profile-link" href="profile.html">Мой профиль</a>
+            <a id="admin-link" href="admin.html" hidden>Админ-панель</a>
             <button id="logout-button" type="button">Выйти</button>
         </nav>
     </header>
 
     <div id="message"></div>
-
+    <div id="announcements"></div>
     <section>
         <form id="post-form">
             <textarea id="post-text" maxlength="2000" placeholder="Что нового?" required></textarea>
