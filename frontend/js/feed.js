@@ -1,5 +1,4 @@
 const myProfileLink = document.querySelector("#my-profile-link");
-const logoutButton = document.querySelector("#logout-button");
 const postsList = document.querySelector("#posts-list");
 const postForm = document.querySelector("#post-form");
 const postTextInput = document.querySelector("#post-text");
@@ -83,23 +82,6 @@ async function checkAuth() {
     } catch (error) {
         showMessage("Сервер недоступен. Проверьте, что бэкенд запущен.");
     }
-}
-
-if (logoutButton) {
-    logoutButton.addEventListener("click", async () => {
-        showMessage("");
-        try {
-            const result = await apiRequest("/api/auth/logout", "POST");
-
-            if (result.ok) {
-                window.location.href = "index.html";
-            } else {
-                showMessage("Не удалось выйти из аккаунта");
-            }
-        } catch (error) {
-            showMessage("Сервер недоступен. Проверьте, что бэкенд запущен.");
-        }
-    });
 }
 
 checkAuth();
