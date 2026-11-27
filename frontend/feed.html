@@ -7,24 +7,26 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <header>
         <h1>Лента</h1>
-        <p>Пользователь: <a id="my-profile-link" href="#">Загрузка...</a></p>
-        <button type="button" id="logout-button">Выйти</button>
+        <nav>
+            <span>Пользователь: <a id="my-profile-link" href="profile.html">Загрузка...</a></span>
+            <button id="logout-button" type="button">Выйти</button>
+        </nav>
     </header>
+
+    <div id="message"></div>
 
     <section>
         <form id="post-form">
-            <textarea id="post-text" placeholder="Что у вас нового?" rows="3" required maxlength="2000"></textarea>
-            <br>
+            <textarea id="post-text" maxlength="2000" placeholder="Что нового?" required></textarea>
             <button type="submit">Опубликовать</button>
         </form>
     </section>
 
-    <p id="message"></p>
-
-    <main id="posts-list"></main>
+    <main>
+        <div id="posts-list"></div>
+    </main>
 
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>

@@ -24,14 +24,15 @@ function renderProfile(user) {
     document.title = `${user.display_name || user.username} — Профиль`;
 }
 
-// Загружает информацию о пользователе (GET /api/users/{id})
+// Загружает информацию о пользователе (GET /api/users/{id}).
+// Возвращает true, если профиль загружен, и false, если нет.
 async function loadUserProfile(userId) {
     try {
         const result = await apiRequest(`/api/users/${userId}`);
 
         if (result.status === 404) {
             displayNameBox.textContent = "Пользователь не найден";
-            return;
+            return false;
         }
 
         if (result.ok && result.data) {
@@ -46,11 +47,14 @@ async function loadUserProfile(userId) {
             } else {
                 editSection.hidden = true;
             }
-        } else {
-            showMessage("Не удалось загрузить профиль");
+            return true;
         }
+
+        showMessage("Не удалось загрузить профиль");
+        return false;
     } catch (error) {
         showMessage("Сервер недоступен. Проверьте, что бэкенд запущен.");
+        return false;
     }
 }
 
@@ -87,9 +91,16 @@ if (editForm) {
         event.preventDefault();
         showMessage("");
 
+        const displayName = editDisplayNameInput.value.trim();
+        if (!displayName) {
+            showMessage("Имя не может быть пустым");
+            return;
+        }
+
+        // Пустое описание отправляем как пустую строку, чтобы сервер его очистил
         const body = {
-            display_name: editDisplayNameInput.value.trim() || null,
-            bio: editBioInput.value.trim() || null,
+            display_name: displayName,
+            bio: editBioInput.value.trim(),
         };
 
         try {
@@ -99,8 +110,8 @@ if (editForm) {
                 currentUser = result.data;
                 renderProfile(result.data);
                 showMessage("Профиль обновлён");
-                // Обновляем посты, чтобы в них отобразилось новое имя автора
-                await loadUserPosts(profileId);
+                // Используем currentUser.id, чтобы работало даже при открытии profile.html без ?id=
+                await loadUserPosts(currentUser.id);
             } else if (result.status === 422) {
                 showMessage("Проверьте корректность введённых данных");
             } else {
@@ -135,8 +146,10 @@ async function initProfilePage() {
                 window.history.replaceState(null, "", `profile.html?id=${targetId}`);
             }
 
-            await loadUserProfile(targetId);
-            await loadUserPosts(targetId);
+            const profileLoaded = await loadUserProfile(targetId);
+            if (profileLoaded) {
+                await loadUserPosts(targetId);
+            }
         } else {
             showMessage("Не удалось проверить авторизацию");
         }

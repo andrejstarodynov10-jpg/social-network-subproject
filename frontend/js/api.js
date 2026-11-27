@@ -36,7 +36,7 @@ function formatDate(isoString) {
     return new Date(isoString).toLocaleString("ru-RU");
 }
 
-// Проверяет, может ли пользователь удалить объект (пост или комментарий)
+// Проверет, может ли пользователь удалить объект (пост или комментарий)
 function canDelete(item, user) {
     if (!user || !item || !item.author) return false;
     return user.role === "admin" || item.author.id === user.id;
@@ -272,4 +272,23 @@ function createPostElement(post, currentUser) {
 
     article.append(authorHeading, date, content, actions, commentsSection, document.createElement("hr"));
     return article;
+}
+
+// Общая логика кнопки «Выйти» (работает на feed.html и profile.html)
+const logoutButton = document.querySelector("#logout-button");
+if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+        showMessage("");
+        try {
+            const result = await apiRequest("/api/auth/logout", "POST");
+
+            if (result.ok) {
+                window.location.href = "index.html";
+            } else {
+                showMessage("Не удалось выйти из аккаунта");
+            }
+        } catch (error) {
+            showMessage("Сервер недоступен. Проверьте, что бэкенд запущен.");
+        }
+    });
 }
