@@ -1,21 +1,22 @@
 /* =========================================================
    1. Палитра и базовые настройки
+   Все цвета и размеры собраны в одном месте (переменные :root).
+   Хотите другой акцентный цвет? Меняйте --primary и --primary-dark.
    ========================================================= */
 :root {
-    --bg: #eef2f6;
+    --bg: #e6ebf0;
     --card-bg: #ffffff;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --primary-soft: #eff6ff;
-    --accent: #6366f1;
-    --danger: #ef4444;
-    --danger-bg: #fef2f2;
-    --radius: 16px;
-    --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.04);
-    --shadow-md: 0 12px 28px -6px rgba(15, 23, 42, 0.08);
+    --text-main: #17212b;
+    --text-muted: #7a8794;
+    --border: #e1e7ed;
+    --primary: #2f8fe0;
+    --primary-dark: #2379c4;
+    --primary-soft: #e8f3fd;
+    --danger: #e5484d;
+    --danger-bg: #fdecec;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(23, 33, 43, 0.08);
+    --column: 680px; /* ширина основной колонки */
 }
 
 * {
@@ -24,114 +25,118 @@
     padding: 0;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg);
-    background-image:
-        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.06) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.06) 0px, transparent 50%);
     color: var(--text-main);
-    line-height: 1.6;
-    padding: 20px 16px 80px;
+    line-height: 1.5;
+    padding-bottom: 60px;
 }
 
-/* Единая ширина колонки для ленты и профиля */
-header,
+a {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Основная колонка по центру для всех блоков страницы */
 section,
 main,
-#message {
-    max-width: 650px;
+#message,
+#announcements {
+    width: calc(100% - 32px);
+    max-width: var(--column);
     margin-left: auto;
     margin-right: auto;
 }
 
 /* =========================================================
-   2. Шапка сайта (Лента и Профиль)
+   2. Верхняя панель
+   Полоса на всю ширину, содержимое выровнено по колонке.
    ========================================================= */
 header {
     position: sticky;
-    top: 12px;
+    top: 0;
     z-index: 20;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    border-radius: var(--radius);
-    padding: 14px 22px;
-    margin-bottom: 24px;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    box-shadow: var(--shadow-sm);
+    gap: 16px;
+    padding: 10px max(16px, calc((100% - var(--column)) / 2));
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
 }
 
 header h1 {
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
-header p,
 header nav {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+    gap: 4px;
 }
 
-header nav a,
-header p a {
-    padding: 6px 12px;
-    border-radius: 10px;
-    background-color: var(--primary-soft);
-    color: var(--primary);
+header nav a {
+    padding: 7px 12px;
+    white-space: nowrap;
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-size: 0.92rem;
     font-weight: 600;
+    text-decoration: none;
     transition: background-color 0.15s, color 0.15s;
 }
 
-header nav a:hover,
-header p a:hover {
-    background-color: #dbeafe;
-    text-decoration: none;
+header nav a:hover {
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
 }
 
 /* =========================================================
-   3. Секции (Создание поста, Профиль, Редактирование)
+   3. Блоки-секции (создание поста, профиль, формы админки)
    ========================================================= */
 section {
     background: var(--card-bg);
-    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 22px;
-    box-shadow: var(--shadow-sm);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
 }
 
 section h2,
 section h3 {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 700;
     margin-bottom: 14px;
-    color: var(--text-main);
 }
 
-/* Акцент для формы публикации поста в ленте */
-section:has(#post-form) {
-    border-top: 4px solid var(--primary);
+main h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 4px 0 12px 6px;
 }
 
-/* Карточка профиля: градиентная шапка + аватар */
+/* ----- Карточка профиля: цветная обложка и круглый аватар ----- */
 section:has(#profile-display-name) {
     position: relative;
     overflow: hidden;
-    padding-top: 92px;
+    padding-top: 110px;
 }
 
 section:has(#profile-display-name)::before {
@@ -140,67 +145,57 @@ section:has(#profile-display-name)::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 76px;
-    background: linear-gradient(120deg, #2563eb, #4f46e5, #7c3aed);
+    height: 84px;
+    background: linear-gradient(120deg, #4ba3ea, #2f8fe0 55%, #5f7fe8);
 }
 
 #profile-display-name {
-    font-size: 1.65rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 2px;
     display: flex;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-end;
+    gap: 14px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 #profile-display-name::before {
     content: "👤";
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    font-size: 1.4rem;
-    background: #ffffff;
-    border: 3px solid #e0e7ff;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    margin-top: -64px;
+    font-size: 1.8rem;
+    background: var(--primary-soft);
+    border: 4px solid var(--card-bg);
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.18);
-    margin-top: -26px;
     position: relative;
     z-index: 2;
 }
 
 section:has(#profile-display-name) > p:first-of-type {
-    display: inline-block;
-    background: #f1f5f9;
+    margin-top: 6px;
     color: var(--text-muted);
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-top: 4px;
+    font-size: 0.92rem;
 }
 
 #profile-bio {
-    margin-top: 16px;
-    padding: 14px 16px;
-    background-color: #f8fafc;
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #f4f7fa;
     border-radius: 12px;
-    border: 1px solid var(--border);
-    color: var(--text-main);
     font-size: 0.95rem;
     white-space: pre-wrap;
 }
 
-/* Секция редактирования профиля */
 #edit-profile-section {
-    background: #f8fafc;
-    border: 1px dashed #cbd5e1;
+    background: var(--card-bg);
 }
 
 /* =========================================================
-   4. Формы, поля ввода и кнопки
+   4. Формы, поля и кнопки
    ========================================================= */
 form {
     display: flex;
@@ -216,28 +211,32 @@ input[type="text"],
 input[type="password"],
 textarea {
     width: 100%;
-    padding: 12px 14px;
+    padding: 11px 14px;
     font-family: inherit;
     font-size: 0.95rem;
     color: var(--text-main);
-    background-color: #f8fafc;
-    border: 1.5px solid var(--border);
+    background: #f4f7fa;
+    border: 1.5px solid transparent;
     border-radius: 12px;
-    transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    transition: border-color 0.15s, background-color 0.15s;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
 textarea:focus {
     outline: none;
-    background-color: #ffffff;
+    background: #ffffff;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 textarea {
     resize: vertical;
-    min-height: 92px;
+    min-height: 90px;
+}
+
+input[type="file"] {
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
 label {
@@ -247,113 +246,87 @@ label {
     margin-bottom: -6px;
 }
 
+#remove-image-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+}
+
 button {
     font-family: inherit;
     font-size: 0.9rem;
     font-weight: 600;
-    padding: 9px 18px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background-color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    background: #eef2f6;
     color: var(--text-main);
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: background-color 0.15s, color 0.15s;
 }
 
 button:hover {
-    background-color: #f8fafc;
-    border-color: #cbd5e1;
-}
-
-button:active {
-    transform: scale(0.98);
+    background: #e1e8ef;
 }
 
 button[type="submit"] {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #ffffff;
-    border: none;
     align-self: flex-start;
     padding: 10px 22px;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    background: var(--primary);
+    color: #ffffff;
 }
 
 button[type="submit"]:hover {
-    opacity: 0.94;
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.32);
+    background: var(--primary-dark);
 }
 
 #logout-button {
+    margin-left: 8px;
+    background: transparent;
     color: var(--danger);
-    border-color: #fecaca;
-    background-color: #ffffff;
-    padding: 6px 14px;
-    font-size: 0.85rem;
 }
 
 #logout-button:hover {
-    background-color: var(--danger-bg);
-    border-color: #fca5a5;
+    background: var(--danger-bg);
 }
 
-/* Уведомления */
+/* Сообщения (ошибки и уведомления) */
 #message:not(:empty) {
-    background-color: var(--danger-bg);
-    color: #b91c1c;
-    border: 1px solid #fecaca;
-    padding: 12px 16px;
+    padding: 11px 16px;
+    margin-bottom: 14px;
+    background: var(--danger-bg);
+    color: #b3282d;
     border-radius: 12px;
-    margin-bottom: 18px;
     font-size: 0.92rem;
     font-weight: 500;
-    box-shadow: var(--shadow-sm);
+}
+
+/* Форма нового поста в ленте: поле и кнопка в одну строку */
+#post-form {
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+#post-form textarea {
+    min-height: 56px;
+}
+
+#post-form button[type="submit"] {
+    align-self: flex-end;
+    flex-shrink: 0;
 }
 
 /* =========================================================
-   5. Лента и карточки постов
+   5. Карточки: посты и новости
    ========================================================= */
-main h2 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 14px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding-left: 4px;
-}
-#categories-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
-}
-
-#categories-filter button {
-    padding: 7px 14px;
-    font-size: 0.85rem;
-    border-radius: 20px;
-}
-
-#categories-filter button.active {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #ffffff;
-    border-color: transparent;
-}
 article {
     position: relative;
     background: var(--card-bg);
-    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.18s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-article:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: #cbd5e1;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
 }
 
 article hr {
@@ -361,262 +334,281 @@ article hr {
 }
 
 article h4 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 2px;
+    line-height: 1.3;
 }
 
 article h4 a {
     color: var(--text-main);
     text-decoration: none;
-    transition: color 0.15s;
 }
 
 article h4 a:hover {
-    color: var(--primary);
+    color: var(--primary-dark);
 }
 
 article > small {
     display: block;
     font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 article > p {
-    font-size: 1.02rem;
-    color: #1e293b;
-    margin-bottom: 16px;
     white-space: pre-wrap;
     word-break: break-word;
+    margin-bottom: 12px;
 }
 
 article img {
-    max-width: 100%;
-    border-radius: 12px;
-    margin-bottom: 14px;
     display: block;
+    width: 100%;
+    max-height: 340px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 10px 0 12px;
 }
 
-#news-detail h2 {
-    font-size: 1.45rem;
-    font-weight: 800;
-    color: var(--text-main);
-    text-transform: none;
-    letter-spacing: -0.01em;
-    padding-left: 0;
-    margin-bottom: 6px;
+/* ----- Посты (лента и профиль): круглый аватар слева ----- */
+#posts-list article,
+#user-posts-list article {
+    padding-left: 78px;
 }
 
-#news-detail small a {
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: none;
+#posts-list article h4::before,
+#user-posts-list article h4::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7ec4f5, #2f8fe0);
 }
 
-#news-detail small a:hover {
-    text-decoration: underline;
+/* ----- Новости в списке ----- */
+#news-list article h4 {
+    font-size: 1.15rem;
 }
 
-/* Панель действий (лайк, комментарии, удалить) */
-article > div:first-of-type {
+#news-list article:hover {
+    box-shadow: 0 2px 8px rgba(23, 33, 43, 0.14);
+}
+
+/* Нижняя строка карточки новости (счётчик комментариев) */
+#news-list article > div {
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+/* Фильтр категорий: «чипы» */
+#categories-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+#categories-filter button {
+    padding: 7px 16px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+}
+
+#categories-filter button:hover {
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+}
+
+#categories-filter button.active {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+/* ----- Панель действий поста: лайк, комментарии, удалить ----- */
+#posts-list article > div:first-of-type,
+#user-posts-list article > div:first-of-type {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
+}
+
+#posts-list article > div:first-of-type button,
+#user-posts-list article > div:first-of-type button {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+#posts-list article > div:first-of-type button:hover,
+#user-posts-list article > div:first-of-type button:hover {
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+}
+
+/* Кнопка «Удалить» уходит вправо */
+#posts-list article > div:first-of-type button:nth-child(3),
+#user-posts-list article > div:first-of-type button:nth-child(3) {
+    margin-left: auto;
+    background: transparent;
+    color: var(--danger);
+}
+
+#posts-list article > div:first-of-type button:nth-child(3):hover,
+#user-posts-list article > div:first-of-type button:nth-child(3):hover {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+/* =========================================================
+   6. Комментарии (под постом и на странице новости)
+   ========================================================= */
+/* Блок комментариев под постом (второй div карточки) */
+#posts-list article > div + div,
+#user-posts-list article > div + div {
+    margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid var(--border);
 }
 
-article > div:first-of-type button {
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    border-radius: 20px;
-    background-color: #f8fafc;
+/* Блок комментариев на странице новости */
+#news-comments-section {
+    display: block;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
 }
 
-article > div:first-of-type button:hover {
-    background-color: var(--primary-soft);
-    border-color: #bfdbfe;
-    color: var(--primary);
+/* Один комментарий — «пузырь» */
+#posts-list article > div + div > div > div,
+#user-posts-list article > div + div > div > div,
+#news-comments-list > div {
+    background: #f1f5f9;
+    border-radius: 4px 14px 14px 14px;
+    padding: 8px 14px;
+    margin-bottom: 8px;
 }
 
-/* Кнопка «Удалить» уходит в правый край карточки */
-article > div:first-of-type button:nth-child(3) {
-    margin-left: auto;
-    color: var(--danger);
-    border-color: transparent;
-    background-color: transparent;
-}
-
-article > div:first-of-type button:nth-child(3):hover {
-    background-color: var(--danger-bg);
-    border-color: #fecaca;
-}
-
-/* =========================================================
-   6. Комментарии внутри поста
-   ========================================================= */
-article > div:last-of-type:not([hidden]) {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--border);
-}
-
-article > div:last-of-type > div > div {
-    background-color: #f8fafc;
-    border-left: 3px solid var(--primary);
-    border-radius: 0 12px 12px 0;
-    padding: 10px 14px;
-    margin-bottom: 10px;
-}
-
-article > div:last-of-type > div > div small {
+#posts-list article > div + div small,
+#user-posts-list article > div + div small,
+#news-comments-list small {
     display: block;
     font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 4px;
 }
 
-article > div:last-of-type > div > div small a {
-    color: var(--text-main);
-    font-weight: 600;
-    text-decoration: none;
+#posts-list article > div + div small a,
+#user-posts-list article > div + div small a,
+#news-comments-list small a {
+    color: var(--primary-dark);
+    font-weight: 700;
 }
 
-article > div:last-of-type > div > div small a:hover {
-    color: var(--primary);
-}
-article > div:last-of-type > div > div p {
+#posts-list article > div + div > div > div p,
+#user-posts-list article > div + div > div > div p,
+#news-comments-list p {
     font-size: 0.93rem;
-    margin-bottom: 6px;
+    margin: 2px 0 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
-article > div:last-of-type > div > div button {
-    padding: 3px 10px;
+
+#posts-list article > div + div > div > div button,
+#user-posts-list article > div + div > div > div button,
+#news-comments-list button {
+    padding: 2px 10px;
+    margin-left: -10px;
     font-size: 0.78rem;
-    color: var(--danger);
     background: transparent;
-    border-color: #fecaca;
+    color: var(--danger);
 }
-article > div:last-of-type > div > div button:hover {
-    background-color: var(--danger-bg);
+
+#posts-list article > div + div > div > div button:hover,
+#user-posts-list article > div + div > div > div button:hover,
+#news-comments-list button:hover {
+    background: var(--danger-bg);
 }
+
+/* Форма нового комментария: поле и кнопка в строку */
 article form {
     flex-direction: row;
     align-items: center;
-    margin-top: 12px;
+    margin-top: 10px;
 }
+
 article form input[type="text"] {
     flex: 1;
-    padding: 9px 14px;
 }
+
 article form button[type="submit"] {
-    padding: 9px 16px;
+    align-self: center;
+    padding: 9px 18px;
 }
+
 /* =========================================================
-7. Страница входа и регистрации (index.html)
-========================================================= */
-body:has(#login-form) {
-    max-width: 420px;
-    margin: 50px auto;
-}
-body:has(#login-form) #toggle-button {
-    width: 100%;
-    margin-bottom: 16px;
-    background-color: var(--card-bg);
-    padding: 11px;
-    box-shadow: var(--shadow-sm);
-}
-body:has(#login-form) form {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    box-shadow: var(--shadow-md);
-}
-body:has(#login-form) form[hidden] {
-    display: none;
-}
-body:has(#login-form) button[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    margin-top: 6px;
-    font-size: 0.95rem;
-}
-/* =========================================================
-8. Адаптивность под мобильные устройства
-========================================================= */
-@media (max-width: 520px) {
-    body {
-        padding: 12px 10px 60px;
-    }
-    header,
-    section,
-    article {
-        padding: 16px;
-    }
-    section:has(#profile-display-name) {
-        padding-top: 84px;
-    }
-    article form {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    article form button[type="submit"] {
-        width: 100%;
-    }
-}
-/* =========================================================
-   9. Исправления для страницы новости
+   7. Страница новости
    ========================================================= */
-
-/* Элементы с атрибутом hidden всегда скрыты */
-[hidden] {
-    display: none !important;
+#news-detail {
+    padding: 24px 28px;
 }
 
-/* Блок комментариев на странице новости: обычный блок, а не полоса кнопок */
-#news-comments-section {
-    display: block;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--border);
+#news-detail h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 6px;
+    padding: 0;
+    color: var(--text-main);
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+#news-detail #news-meta {
+    margin-bottom: 14px;
+}
+
+#news-detail #news-meta a {
+    font-weight: 600;
+}
+
+#news-detail #news-text {
+    font-size: 1.02rem;
+    line-height: 1.65;
 }
 
 /* =========================================================
-   10. Баннер оповещений и админ-панель
+   8. Баннер оповещений (как закреплённое сообщение) и админ-панель
    ========================================================= */
-#announcements {
-    max-width: 650px;
-    margin: 0 auto;
-}
-
 .announcement-banner {
-    background: linear-gradient(135deg, #eff6ff, #eef2ff);
-    border: 1px solid #bfdbfe;
-    border-left: 5px solid var(--primary);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow-sm);
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 4px 14px 14px 4px;
+    padding: 12px 18px;
+    margin-bottom: 12px;
 }
 
 .announcement-banner h4 {
-    color: var(--primary);
-    font-size: 1rem;
-    margin-bottom: 4px;
+    color: var(--primary-dark);
+    font-size: 0.98rem;
+    margin-bottom: 2px;
+}
+
+.announcement-banner h4::before {
+    content: "📌 ";
 }
 
 .announcement-banner p {
-    font-size: 0.94rem;
-    color: var(--text-main);
-    margin-bottom: 6px;
+    font-size: 0.93rem;
+    margin-bottom: 4px;
     white-space: pre-wrap;
 }
 
 .announcement-banner small {
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
 }
 
 .admin-item {
@@ -647,14 +639,83 @@ body:has(#login-form) button[type="submit"] {
 
 .admin-item button:last-child {
     color: var(--danger);
-    border-color: #fecaca;
 }
 
 .admin-item button:last-child:hover {
-    background-color: var(--danger-bg);
+    background: var(--danger-bg);
 }
 
-/* Ссылки в шапке без подчёркивания */
-header nav a {
-    text-decoration: none;
+/* =========================================================
+   9. Страница входа и регистрации (index.html)
+   Одна карточка по центру на цветном фоне.
+   ========================================================= */
+body:has(#login-form) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    background: linear-gradient(160deg, #6bb6f0, #2f8fe0 55%, #5a78e0);
+}
+
+body:has(#login-form)::before {
+    content: "💬";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    margin-bottom: 20px;
+    font-size: 2.4rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(23, 33, 43, 0.18);
+}
+
+body:has(#login-form) form {
+    order: 1;
+    width: 100%;
+    max-width: 380px;
+    padding: 26px 28px 28px;
+    background: var(--card-bg);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(23, 33, 43, 0.2);
+}
+
+body:has(#login-form) form h3 {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+}
+
+body:has(#login-form) button[type="submit"] {
+    align-self: stretch;
+    padding: 12px;
+    font-size: 0.95rem;
+}
+
+/* Переключатель форм — обычная ссылка под карточкой */
+body:has(#login-form) #toggle-button {
+    order: 2;
+    margin-top: 14px;
+    padding: 8px 16px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+body:has(#login-form) #toggle-button:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+body:has(#login-form) #message {
+    order: 3;
+    width: 100%;
+    max-width: 380px;
+    margin-top: 12px;
+}
+
+body:has(#login-form) #message:not(:empty) {
+    margin-bottom: 0;
 }
