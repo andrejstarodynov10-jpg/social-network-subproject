@@ -302,6 +302,11 @@ button[type="submit"]:hover {
     font-weight: 500;
 }
 
+#message.success:not(:empty) {
+    background: #e6f6ec;
+    color: #1e7a46;
+}
+
 /* Форма нового поста в ленте: поле и кнопка в одну строку */
 #post-form {
     flex-direction: row;
@@ -398,7 +403,7 @@ article img {
 }
 
 /* Нижняя строка карточки новости (счётчик комментариев) */
-#news-list article > div {
+#news-list .news-footer {
     padding-top: 10px;
     border-top: 1px solid var(--border);
     color: var(--text-muted);
@@ -429,96 +434,82 @@ article img {
 }
 
 /* ----- Панель действий поста: лайк, комментарии, удалить ----- */
-#posts-list article > div:first-of-type,
-#user-posts-list article > div:first-of-type {
+.post-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
 }
 
-#posts-list article > div:first-of-type button,
-#user-posts-list article > div:first-of-type button {
+.post-actions button {
     padding: 6px 14px;
     font-size: 0.85rem;
 }
 
-#posts-list article > div:first-of-type button:hover,
-#user-posts-list article > div:first-of-type button:hover {
+.post-actions button:hover {
     background: var(--primary-soft);
     color: var(--primary-dark);
 }
 
 /* Кнопка «Удалить» уходит вправо */
-#posts-list article > div:first-of-type button:nth-child(3),
-#user-posts-list article > div:first-of-type button:nth-child(3) {
+.post-actions button:nth-child(3) {
     margin-left: auto;
     background: transparent;
     color: var(--danger);
 }
 
-#posts-list article > div:first-of-type button:nth-child(3):hover,
-#user-posts-list article > div:first-of-type button:nth-child(3):hover {
+.post-actions button:nth-child(3):hover {
     background: var(--danger-bg);
     color: var(--danger);
 }
 
 /* =========================================================
-   6. Комментарии (под постом и на странице новости)
+   6. Комментарии (компонент CommentsBlock: под постом и на странице новости)
    ========================================================= */
-/* Блок комментариев под постом (второй div карточки) */
-#posts-list article > div + div,
-#user-posts-list article > div + div {
+.comments {
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid var(--border);
 }
 
-/* Блок комментариев на странице новости */
-#news-comments-section {
-    display: block;
+#news-detail > .comments {
     margin-top: 18px;
     padding-top: 14px;
-    border-top: 1px solid var(--border);
+}
+
+.comments-list > p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
 /* Один комментарий — «пузырь» */
-#posts-list article > div + div > div > div,
-#user-posts-list article > div + div > div > div,
-#news-comments-list > div {
+.comment {
     background: #f1f5f9;
     border-radius: 4px 14px 14px 14px;
     padding: 8px 14px;
     margin-bottom: 8px;
 }
 
-#posts-list article > div + div small,
-#user-posts-list article > div + div small,
-#news-comments-list small {
+.comment small {
     display: block;
     font-size: 0.8rem;
     color: var(--text-muted);
 }
 
-#posts-list article > div + div small a,
-#user-posts-list article > div + div small a,
-#news-comments-list small a {
+.comment small a {
     color: var(--primary-dark);
     font-weight: 700;
 }
 
-#posts-list article > div + div > div > div p,
-#user-posts-list article > div + div > div > div p,
-#news-comments-list p {
+.comment p {
     font-size: 0.93rem;
     margin: 2px 0 4px;
     white-space: pre-wrap;
     word-break: break-word;
 }
 
-#posts-list article > div + div > div > div button,
-#user-posts-list article > div + div > div > div button,
-#news-comments-list button {
+.comment button {
     padding: 2px 10px;
     margin-left: -10px;
     font-size: 0.78rem;
@@ -526,9 +517,7 @@ article img {
     color: var(--danger);
 }
 
-#posts-list article > div + div > div > div button:hover,
-#user-posts-list article > div + div > div > div button:hover,
-#news-comments-list button:hover {
+.comment button:hover {
     background: var(--danger-bg);
 }
 
@@ -718,4 +707,10 @@ body:has(#login-form) #message {
 
 body:has(#login-form) #message:not(:empty) {
     margin-bottom: 0;
+}
+
+/* Активная ссылка в шапке (Vue Router сам добавляет этот класс) */
+header nav a.router-link-active {
+    background-color: var(--primary-soft);
+    color: var(--primary-dark);
 }

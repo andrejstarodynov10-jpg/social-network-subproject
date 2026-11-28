@@ -1,11 +1,18 @@
-<script setup></script>
+<script setup>
+import AppHeader from './components/AppHeader.vue'
+import { useAuthStore } from './stores/auth'
+import { useMessageStore } from './stores/message'
+
+const auth = useAuthStore()
+const message = useMessageStore()
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
-</template>
+  <!-- Шапка видна только вошедшему пользователю (на странице входа её нет) -->
+  <AppHeader v-if="auth.user" />
 
-<style scoped></style>
+  <!-- Сообщения об ошибках и уведомления (замена старого #message) -->
+  <div v-if="auth.user && message.text" id="message" :class="message.type">{{ message.text }}</div>
+
+  <RouterView />
+</template>
